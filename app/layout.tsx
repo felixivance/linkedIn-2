@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* toaster */}
 
-        <header>
+        <header className="border-b sticky top-0 bg-white z-50">
           <Header />
         </header>
 
