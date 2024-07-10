@@ -6,6 +6,14 @@
     .icon{
       @apply flex flex-col items-center justify-center text-sm font-light
     }
+
+    .icon svg{
+      @apply  stroke-gray-300;
+    }
+
+    .icon p{
+      @apply text-gray-400 text-xs
+    }
   }
 
   @layer base {

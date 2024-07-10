@@ -1,3 +1,4 @@
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import {
   Briefcase,
   HomeIcon,
@@ -53,7 +54,13 @@ const Header = (props: Props) => {
           <p>Messaging</p>
         </Link>
         {/* user button */}
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
         {/* sign in button */}
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
       </div>
     </div>
   );
