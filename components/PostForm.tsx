@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useUser } from "@clerk/nextjs";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, XIcon } from "lucide-react";
 import { Button } from "./ui/button";
 type Props = {};
 
@@ -20,8 +20,8 @@ const PostForm = (props: Props) => {
   };
 
   return (
-    <div>
-      <form action="" ref={formRef}>
+    <div className=" mb-2">
+      <form action="" ref={formRef} className="p-3 bg-white rounded-lg border">
         <div className="flex">
           <Avatar>
             {user?.id ? (
@@ -55,15 +55,31 @@ const PostForm = (props: Props) => {
           </button>
         </div>
         {/* preview */}
+        {preview && (
+          <div className="mt-3">
+            <img src={preview} alt="preview" className="w-full object-cover" />
+          </div>
+        )}
 
-        <div>
-          <Button type="button">
+        <div className="flex space-x-2 justify-end mt-2">
+          <Button type="button" onClick={() => fileInputRef.current?.click()}>
             <ImageIcon className="mr-2" size={16} color="currentColor" />
-            Add Image
+            {preview ? "Change" : "Add "} Image
           </Button>
           {/* remove preview image */}
+          {preview && (
+            <Button
+              variant={"outline"}
+              type="button"
+              onClick={() => setPreview(null)}
+            >
+              <XIcon className="mr-2" size={16} color="currentColor" />
+              Remove
+            </Button>
+          )}
         </div>
       </form>
+      <hr className="mt-2 border-gray-300" />
     </div>
   );
 };
