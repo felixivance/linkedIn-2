@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Button } from "./ui/button";
 
 type Props = {};
 
@@ -59,7 +60,9 @@ const Header = (props: Props) => {
         </SignedIn>
         {/* sign in button */}
         <SignedOut>
-          <SignInButton />
+          <Button asChild variant={"secondary"}>
+            <SignInButton />
+          </Button>
         </SignedOut>
       </div>
     </div>
