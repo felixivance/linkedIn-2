@@ -2,6 +2,12 @@
   @tailwind components;
   @tailwind utilities;
 
+  @layer components{
+    .icon{
+      @apply flex flex-col items-center justify-center text-sm font-light
+    }
+  }
+
   @layer base {
     :root {
       --background: 0 0% 100%;
