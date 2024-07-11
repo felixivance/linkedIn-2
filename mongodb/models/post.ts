@@ -50,8 +50,16 @@ const PostSchema = new Schema<IPostDocument>({
 
 PostSchema.methods.likePost = async function (userId: string){
     try{
-        await this.updateOnt({ $addToSet: { likes: userId}});
+        await this.updateOne({ $addToSet: { likes: userId}});
     }catch(error){
         console.log("Failed to like post", error);
+    }
+}
+
+PostSchema.methods.unlikePost = async function(userId: string){
+    try{
+        await this.updateOne({ $pull: { likes: userId}});
+    }catch(error){
+        console.log("error unlinking post ", error);
     }
 }
