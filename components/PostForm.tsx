@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useUser } from "@clerk/nextjs";
 import { ImageIcon, XIcon } from "lucide-react";
 import { Button } from "./ui/button";
+import createPostAction from "@/actions/createPostAction";
 type Props = {};
 
 const PostForm = (props: Props) => {
@@ -19,9 +20,36 @@ const PostForm = (props: Props) => {
     }
   };
 
+  const handlePostAction = async (formData: FormData) => {
+    const formDataCopy = formData;
+
+    formRef.current?.reset();
+
+    const text = formDataCopy.get("postInput") as string;
+
+    if (!text.trim()) {
+      throw new Error("you must provide a post input");
+    }
+    setPreview(null);
+
+    try {
+      await createPostAction(formDataCopy);
+    } catch (error) {
+      console.log("error creating post: ", error);
+    }
+  };
+
   return (
     <div className=" mb-2">
-      <form action="" ref={formRef} className="p-3 bg-white rounded-lg border">
+      <form
+        action={(formData) => {
+          // handle form submission with server action
+          handlePostAction(formData);
+          // display toast notification
+        }}
+        ref={formRef}
+        className="p-3 bg-white rounded-lg border"
+      >
         <div className="flex">
           <Avatar>
             {user?.id ? (
