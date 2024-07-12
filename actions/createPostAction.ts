@@ -1,5 +1,7 @@
 "use server";
 
+import { Post } from "@/mongodb/models/post";
+import { IUser } from "@/types/user";
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function createPostAction(formData: FormData){
@@ -18,9 +20,31 @@ export default async function createPostAction(formData: FormData){
         throw new Error("post input is required");
     }
 
-    // define user
+    try{
+        // define user
+        const userDB: IUser = {
+            userId: user.id,
+            userImage: user.imageUrl,
+            firstName: user.firstName || "",
+            lastName: user.lastName || "",
+        }
+        // upload image
 
-    // upload image
+        if(image.size > 0){
+            console.log("uploading image to azure")
+        }else{
+            // create post without image
+            const body = {
+                user: userDB,
+                text: postInput
+            }
+            await Post.create(body);
+        }
+    }catch(error:any){
+        console.log("failed to create post ",error);
+    }
+
+    
 
     // create post in db
 
