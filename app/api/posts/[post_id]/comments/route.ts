@@ -26,7 +26,6 @@ export async function GET(request: Request, {params}: { params : { post_id: stri
     }
 }
 
-
 export interface AddCommentRequestBody{
     user: IUser,
     text: string;
@@ -37,6 +36,7 @@ export async function POST( request: Request, { params} : { params: { post_id: s
 
     try{
 
+        await connectDB();
         const post = await Post.findById(params.post_id);
 
         if(!post){
