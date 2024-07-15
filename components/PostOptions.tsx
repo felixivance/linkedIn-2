@@ -4,7 +4,7 @@ import { IPostDocument } from "@/mongodb/models/post";
 import { MessageCircle, Repeat2, Send, ThumbsUpIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { useUser } from "@clerk/nextjs";
+import { SignedIn, useUser } from "@clerk/nextjs";
 import { LikePostRequestBody } from "@/app/api/posts/[post_id]/like/route";
 import { UnlikePostRequestBody } from "@/app/api/posts/[post_id]/unlike/route";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const PostOptions = ({ post }: Props) => {
-  const [isCommentsOpen, setIsCommentsOpen] = useState();
+  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const { user } = useUser();
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(post.likes);
@@ -103,8 +103,18 @@ const PostOptions = ({ post }: Props) => {
           Like
         </Button>
 
-        <Button variant={"ghost"} className="postButton">
-          <MessageCircle /> Comment
+        <Button
+          variant={"ghost"}
+          className="postButton"
+          onClick={() => setIsCommentsOpen(!isCommentsOpen)}
+        >
+          <MessageCircle
+            className={cn(
+              "mr-1",
+              isCommentsOpen && "text-gray-600 fill-gray-600"
+            )}
+          />{" "}
+          Comment
         </Button>
 
         <Button variant={"ghost"} className="postButton">
@@ -116,10 +126,14 @@ const PostOptions = ({ post }: Props) => {
         </Button>
       </div>
 
-      <div>
-        {user?.id && <CommentForm postId={post._id as string} />}
-        <CommentFeed post={post} />
-      </div>
+      {isCommentsOpen && (
+        <div>
+          <SignedIn>
+            <CommentForm postId={post._id as string} />
+          </SignedIn>
+          <CommentFeed post={post} />
+        </div>
+      )}
     </div>
   );
 };
