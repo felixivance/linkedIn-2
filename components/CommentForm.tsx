@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useUser } from "@clerk/nextjs";
 import createCommentAction from "@/actions/createCommentAction";
+import { toast } from "sonner";
 
 type Props = {
   postId: string;
@@ -36,6 +37,11 @@ function CommentForm({ postId }: Props) {
       ref={ref}
       action={(formData) => {
         const promise = handleCommentAction(formData);
+        toast.promise(promise, {
+          loading: "creating comment..",
+          success: "comment created",
+          error: "Failed to create comment",
+        });
       }}
     >
       <Avatar>

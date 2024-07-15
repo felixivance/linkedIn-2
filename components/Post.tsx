@@ -10,6 +10,7 @@ import { Button } from "./ui/button";
 import deletePostAction from "@/actions/deletePostAction";
 import Image from "next/image";
 import PostOptions from "./PostOptions";
+import { toast } from "sonner";
 
 type Props = {
   post: IPostDocument;
@@ -57,6 +58,11 @@ const Post = ({ post, key }: Props) => {
               variant={"outline"}
               onClick={() => {
                 const promise = deletePostAction(post._id as string);
+                toast.promise(promise, {
+                  loading: "deleting post..",
+                  success: "post deleted",
+                  error: "Failed to delete post",
+                });
               }}
             >
               <Trash2 />
