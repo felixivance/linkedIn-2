@@ -42,7 +42,7 @@ const CommentFeed = ({ post }: Props) => {
               </p>
             </div>
 
-            <p className="mt-3 text-sm">{comment.text}</p>
+            <p className="mt-3 text-sm break-words">{comment.text}</p>
           </div>
         </div>
       ))}

@@ -14,6 +14,9 @@ const PostForm = (props: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
+  const [postInput, setPostInput] = useState("");
+  const maxCharacters = 200;
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -26,6 +29,7 @@ const PostForm = (props: Props) => {
     const formDataCopy = formData;
 
     formRef.current?.reset();
+    setPostInput("");
 
     const text = formDataCopy.get("postInput") as string;
 
@@ -38,6 +42,12 @@ const PostForm = (props: Props) => {
       await createPostAction(formDataCopy);
     } catch (error) {
       console.log("error creating post: ", error);
+    }
+  };
+
+  const handlePostTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length <= maxCharacters) {
+      setPostInput(e.target.value);
     }
   };
 
@@ -75,6 +85,8 @@ const PostForm = (props: Props) => {
             name="postInput"
             placeholder="Start writing a post"
             className="flex-1 outline-none rounded-full py-2 px-4 border"
+            onChange={handlePostTextChange}
+            maxLength={maxCharacters}
           />
 
           <input
@@ -115,6 +127,13 @@ const PostForm = (props: Props) => {
               <XIcon className="mr-2" size={16} color="currentColor" />
               Remove
             </Button>
+          )}
+        </div>
+        <div>
+          {maxCharacters - postInput.length != maxCharacters && (
+            <div className="text-xs text-gray-500">
+              {maxCharacters - postInput.length} characters left
+            </div>
           )}
         </div>
       </form>
