@@ -127,7 +127,7 @@ const PostOptions = ({ post }: Props) => {
       </div>
 
       {isCommentsOpen && (
-        <div>
+        <div className="">
           <SignedIn>
             <CommentForm postId={post._id as string} />
           </SignedIn>
