@@ -111,7 +111,7 @@ const PostOptions = ({ post }: Props) => {
         >
           <ThumbsUpIcon
             className={cn("mr-1", liked && "text-[#4881c2] fill-[#4881c2]")}
-          ></ThumbsUpIcon>{" "}
+          ></ThumbsUpIcon>
           Like
         </Button>
 
@@ -125,7 +125,7 @@ const PostOptions = ({ post }: Props) => {
               "mr-1",
               isCommentsOpen && "text-gray-600 fill-gray-600"
             )}
-          />{" "}
+          />
           Comment
         </Button>
 
