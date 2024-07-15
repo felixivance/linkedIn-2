@@ -5,6 +5,9 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import ReactTimeago from "react-timeago";
+import { Trash2 } from "lucide-react";
+import { Button } from "./ui/button";
+import deletePostAction from "@/actions/deletePostAction";
 
 type Props = {
   post: IPostDocument;
@@ -39,12 +42,24 @@ const Post = ({ post, key }: Props) => {
             </p>
             <p className="text-xs text-gray-400">
               @{post.user.firstName}
-              {post.user.firstName}-{post.user.userId.toString().slice(-4)}
+              {post.user.lastName}-{post.user.userId.toString().slice(-4)}
             </p>
             <p className="text-xs text-gray-400">
               <ReactTimeago date={new Date(post.createdAt)} />
             </p>
           </div>
+
+          {isAuthor && (
+            <Button
+              className=""
+              variant={"outline"}
+              onClick={() => {
+                const promise = deletePostAction(post._id as string);
+              }}
+            >
+              <Trash2 />
+            </Button>
+          )}
         </div>
       </div>
     </div>
