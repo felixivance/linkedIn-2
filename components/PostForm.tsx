@@ -51,7 +51,7 @@ const PostForm = (props: Props) => {
         ref={formRef}
         className="p-3 bg-white rounded-lg border"
       >
-        <div className="flex">
+        <div className="flex items-center space-x-1">
           <Avatar>
             {user?.id ? (
               <AvatarImage src={user?.imageUrl}></AvatarImage>
@@ -68,7 +68,7 @@ const PostForm = (props: Props) => {
             type="text"
             name="postInput"
             placeholder="Start writing a post"
-            className="flex-1 outline-none rounded-full py-3 px-4 border"
+            className="flex-1 outline-none rounded-full py-2 px-4 border"
           />
 
           <input

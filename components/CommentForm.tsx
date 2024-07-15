@@ -31,7 +31,13 @@ function CommentForm({ postId }: Props) {
   };
 
   return (
-    <form className="flex items-center space-x-1 py-2 px-4">
+    <form
+      className="flex items-center space-x-1 py-2 px-4"
+      ref={ref}
+      action={(formData) => {
+        const promise = handleCommentAction(formData);
+      }}
+    >
       <Avatar>
         <AvatarImage src={user?.imageUrl}></AvatarImage>
         <AvatarFallback>
@@ -43,7 +49,7 @@ function CommentForm({ postId }: Props) {
       <div className="flex flex-1  bg-white border rounded-full px-3 py-2">
         <input
           type="text"
-          name=""
+          name="commentInput"
           placeholder="Add a comment"
           id=""
           className="outline-none flex-1 text-sm bg-transparent"

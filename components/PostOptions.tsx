@@ -9,6 +9,7 @@ import { LikePostRequestBody } from "@/app/api/posts/[post_id]/like/route";
 import { UnlikePostRequestBody } from "@/app/api/posts/[post_id]/unlike/route";
 import { cn } from "@/lib/utils";
 import CommentForm from "./CommentForm";
+import CommentFeed from "./CommentFeed";
 
 type Props = {
   post: IPostDocument;
@@ -116,7 +117,8 @@ const PostOptions = ({ post }: Props) => {
       </div>
 
       <div>
-        <CommentForm postId={post._id as string} />
+        {user?.id && <CommentForm postId={post._id as string} />}
+        <CommentFeed post={post} />
       </div>
     </div>
   );
