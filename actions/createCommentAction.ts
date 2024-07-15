@@ -32,6 +32,8 @@ export default async function createCommentAction(
   };
 
   const post = await Post.findById(postId);
+  console.log("Post is ");
+  console.log(post);
 
   if (!post) {
     throw new Error("Post not found");
@@ -43,7 +45,10 @@ export default async function createCommentAction(
   };
 
   try {
-    await post.commentOnPost(comment);
+    const data = await post.commentOnPost(comment);
+    console.log("data is ");
+    console.log(data);
+
     revalidatePath("/");
   } catch (error) {
     throw new Error("An error occurred while adding comment");

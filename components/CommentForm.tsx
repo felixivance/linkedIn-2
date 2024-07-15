@@ -17,7 +17,7 @@ function CommentForm({ postId }: Props) {
 
   const handleCommentAction = async (formData: FormData): Promise<void> => {
     const formDataCopy = formData;
-    ref.current?.reset;
+    ref.current?.reset();
 
     try {
       if (!user?.id) {

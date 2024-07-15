@@ -79,15 +79,19 @@ const PostOptions = ({ post }: Props) => {
     <div>
       <div className="flex justify-between p-4">
         <div>
-          <p className="text-xs text-gray-500 cursor-pointer hover:underline">
-            {likes?.length} likes
-          </p>
+          {likes && likes.length > 0 && (
+            <p className="text-xs text-gray-500 cursor-pointer hover:underline">
+              {likes?.length} likes
+            </p>
+          )}
         </div>
 
         <div>
-          <p className="text-xs text-gray-500 cursor-pointer hover:underline">
-            {post.comments?.length} Comments
-          </p>
+          {post?.comments && post.comments.length > 0 && (
+            <p className="text-xs text-gray-500 cursor-pointer hover:underline">
+              {post.comments?.length} Comments
+            </p>
+          )}
         </div>
       </div>
 

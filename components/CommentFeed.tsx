@@ -14,9 +14,9 @@ const CommentFeed = ({ post }: Props) => {
   const isAuthor = user?.id === post.user.userId;
 
   return (
-    <div className="space-y-2 mt-3">
+    <div className="space-y-2 mt-3 mb-2 border-t ">
       {post?.comments?.map((comment) => (
-        <div key={comment._id as string}>
+        <div key={comment._id as string} className="flex space-x-1 mx-2 pt-2">
           <Avatar>
             <AvatarImage src={comment.user.userImage} />
             <AvatarFallback>
@@ -24,22 +24,24 @@ const CommentFeed = ({ post }: Props) => {
               {comment.user.lastName?.charAt(0)}
             </AvatarFallback>
           </Avatar>
-          <div>
-            <div className="bg-gray-100 px-4 py-2 rounded-md w-full sm:w-auto md:min-w-[300px]">
-              <div className="flex justify-between">
+          <div className="bg-gray-100 px-4 py-2 rounded-md w-full sm:w-auto md:min-w-[300px]">
+            <div className="flex justify-between">
+              <div>
                 <p className="font-semibold">
                   {comment.user.firstName} {comment.user.lastName}
                 </p>
-                <p>
+                <p className="text-xs text-gray-400">
                   @{comment.user.firstName}
                   {comment.user.firstName}-
                   {comment.user.userId.toString().slice(-4)}
                 </p>
               </div>
+
               <p className="text-xs text-gray-400">
                 <ReactTimeago date={new Date(comment.createdAt)} />
               </p>
             </div>
+
             <p className="mt-3 text-sm">{comment.text}</p>
           </div>
         </div>

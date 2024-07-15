@@ -91,7 +91,11 @@ const PostForm = (props: Props) => {
         )}
 
         <div className="flex space-x-2 justify-end mt-2">
-          <Button type="button" onClick={() => fileInputRef.current?.click()}>
+          <Button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            variant={preview ? "secondary" : "outline"}
+          >
             <ImageIcon className="mr-2" size={16} color="currentColor" />
             {preview ? "Change" : "Add "} Image
           </Button>
