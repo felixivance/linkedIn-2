@@ -8,6 +8,7 @@ import { useUser } from "@clerk/nextjs";
 import { LikePostRequestBody } from "@/app/api/posts/[post_id]/like/route";
 import { UnlikePostRequestBody } from "@/app/api/posts/[post_id]/unlike/route";
 import { cn } from "@/lib/utils";
+import CommentForm from "./CommentForm";
 
 type Props = {
   post: IPostDocument;
@@ -52,7 +53,7 @@ const PostOptions = ({ post }: Props) => {
 
     if (!response.ok) {
       setLiked(originalLiked);
-      throw new Error("Failed to like post");
+      throw new Error("Failed to like or unlike post");
     }
 
     const fetchLikesResponse = await fetch(`/api/posts/${post._id}/like`);
@@ -97,20 +98,25 @@ const PostOptions = ({ post }: Props) => {
         >
           <ThumbsUpIcon
             className={cn("mr-1", liked && "text-[#4881c2] fill-[#4881c2]")}
-          ></ThumbsUpIcon>
+          ></ThumbsUpIcon>{" "}
+          Like
         </Button>
 
         <Button variant={"ghost"} className="postButton">
-          <MessageCircle />
+          <MessageCircle /> Comment
         </Button>
 
         <Button variant={"ghost"} className="postButton">
-          <Repeat2 />
+          <Repeat2 /> Repost
         </Button>
 
         <Button variant={"ghost"} className="postButton">
-          <Send />
+          <Send /> Send
         </Button>
+      </div>
+
+      <div>
+        <CommentForm postId={post._id as string} />
       </div>
     </div>
   );
