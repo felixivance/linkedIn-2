@@ -21,7 +21,7 @@ export async function POST(request: Request, { params }: { params: {post_id : st
 
         await post.unlikePost(userId);
 
-        return NextResponse.json({ message: "post unliked successfully"})
+        return NextResponse.json({ message: "post un liked successfully"})
     }catch(err: any){
         return NextResponse.json(
             { error: "An error occurred fetching the post ", err},

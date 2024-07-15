@@ -18,6 +18,7 @@ const PostForm = (props: Props) => {
     if (file) {
       setPreview(URL.createObjectURL(file));
     }
+    // console.log("coming soon")
   };
 
   const handlePostAction = async (formData: FormData) => {

@@ -3,6 +3,7 @@ import { Comment, IComment, ICommentBase } from "./comment";
 import { IUser } from "@/types/user";
 
 export interface IPostBase{
+    
     user: IUser;
     text: string;
     imageUrl?:string;
