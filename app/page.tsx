@@ -25,9 +25,16 @@ export default async function Home() {
         <PostFeed posts={posts} />
       </section>
 
-      <section className="hidden xl:inline justify-center col-span-2 bg-purple-500">
+      <section className="hidden xl:inline justify-center col-span-2 ">
         {/* right widget */}
-        <p>right widget</p>
+        <div className="ml-6 h-[790px]">
+          <p className="text-sm pb-2 text-center">Checkout my website!</p>
+          <iframe
+            src="https://felixrunye.com"
+            title="Embedded post"
+            className="w-fit 2xl:min-w-[400px] h-full"
+          ></iframe>
+        </div>
       </section>
     </div>
   );
