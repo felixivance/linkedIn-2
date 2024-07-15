@@ -10,6 +10,7 @@ import { UnlikePostRequestBody } from "@/app/api/posts/[post_id]/unlike/route";
 import { cn } from "@/lib/utils";
 import CommentForm from "./CommentForm";
 import CommentFeed from "./CommentFeed";
+import { toast } from "sonner";
 
 type Props = {
   post: IPostDocument;
@@ -24,7 +25,9 @@ const PostOptions = ({ post }: Props) => {
   const likeOrUnlikePost = async () => {
     console.log(post);
     if (!user?.id) {
-      throw new Error("user not authenticated");
+      toast.error("You have to login in to like posts");
+      //   throw new Error("user not authenticated");
+      return;
     }
 
     const originalLiked = liked;
@@ -54,14 +57,18 @@ const PostOptions = ({ post }: Props) => {
 
     if (!response.ok) {
       setLiked(originalLiked);
-      throw new Error("Failed to like or unlike post");
+      toast.error("Failed to like or unlike post");
+      return;
+      //   throw new Error("Failed to like or unlike post");
     }
 
     const fetchLikesResponse = await fetch(`/api/posts/${post._id}/like`);
 
     if (!fetchLikesResponse.ok) {
       setLikes(originalLikes);
-      throw new Error("Failed to fetch Likes");
+      toast.error("Failed to fetch likes");
+      return;
+      //   throw new Error("Failed to fetch Likes");
     }
 
     const newLikesData = await fetchLikesResponse.json();
