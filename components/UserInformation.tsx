@@ -4,11 +4,21 @@ import { Avatar } from "./ui/avatar";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "./ui/button";
+import { IPostDocument } from "@/mongodb/models/post";
 
-type Props = {};
+type Props = {
+  posts: IPostDocument[];
+};
 
-const UserInformation = async (props: Props) => {
+const UserInformation = async ({ posts }: Props) => {
   const user = await currentUser();
+
+  const userPosts = posts?.filter((post) => post.user.userId === user?.id);
+
+  const userComments = posts.flatMap((post) =>
+    post?.comments?.filter((comment) => comment.user.userId === user?.id)
+  );
+
   return (
     <div className="flex flex-col justify-center items-center bg-white mr-6 rounded-lg border py-4 ">
       <Avatar>
@@ -49,12 +59,12 @@ const UserInformation = async (props: Props) => {
 
       <div className="flex justify-between w-full px-4 text-sm">
         <p className="font-semibold text-gray-400">Posts</p>
-        <p className="text-blue-400">10</p>
+        <p className="text-blue-400">{userPosts.length}</p>
       </div>
 
       <div className="flex justify-between w-full px-4 text-sm">
         <p className="font-semibold text-gray-400">Comments</p>
-        <p className="text-blue-400">50</p>
+        <p className="text-blue-400">{userComments.length}</p>
       </div>
     </div>
   );
