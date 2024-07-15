@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import { ImageIcon, XIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import createPostAction from "@/actions/createPostAction";
+import { toast } from "sonner";
 type Props = {};
 
 const PostForm = (props: Props) => {
@@ -45,7 +46,12 @@ const PostForm = (props: Props) => {
       <form
         action={(formData) => {
           // handle form submission with server action
-          handlePostAction(formData);
+          const promise = handlePostAction(formData);
+          toast.promise(promise, {
+            loading: "creating post..",
+            success: "Post created",
+            error: "Failed to create post",
+          });
           // display toast notification
         }}
         ref={formRef}

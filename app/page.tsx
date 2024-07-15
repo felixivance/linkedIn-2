@@ -5,6 +5,7 @@ import connectDB from "@/mongodb/db";
 import { Post } from "@/mongodb/models/post";
 import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
   await connectDB();
@@ -28,7 +29,15 @@ export default async function Home() {
       <section className="hidden xl:inline justify-center col-span-2 ">
         {/* right widget */}
         <div className="ml-6 h-[790px]">
-          <p className="text-sm pb-2 text-center">Checkout my website!</p>
+          <p className="text-sm pb-2 text-left">
+            Checkout my{" "}
+            <Link
+              href="https://felixrunye.com"
+              className="text-blue-600 underline"
+            >
+              Website
+            </Link>
+          </p>
           <iframe
             src="https://felixrunye.com"
             title="Embedded post"
