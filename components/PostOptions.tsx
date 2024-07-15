@@ -22,8 +22,9 @@ const PostOptions = ({ post }: Props) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(post.likes);
 
+  const postId = post._id.toString();
+
   const likeOrUnlikePost = async () => {
-    console.log(post);
     if (!user?.id) {
       toast.error("You have to login in to like posts");
       //   throw new Error("user not authenticated");
@@ -140,7 +141,7 @@ const PostOptions = ({ post }: Props) => {
       {isCommentsOpen && (
         <div className="">
           <SignedIn>
-            <CommentForm postId={post._id as string} />
+            <CommentForm postId={postId} />
           </SignedIn>
           <CommentFeed post={post} />
         </div>

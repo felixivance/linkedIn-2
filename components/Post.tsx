@@ -20,6 +20,8 @@ type Props = {
 const Post = ({ post, key }: Props) => {
   const { user } = useUser();
 
+  const postId = post._id.toString();
+
   const isAuthor = user?.id === post.user.userId;
   return (
     <div className="bg-white rounded-md border">
@@ -57,7 +59,7 @@ const Post = ({ post, key }: Props) => {
               className=""
               variant={"outline"}
               onClick={() => {
-                const promise = deletePostAction(post._id as string);
+                const promise = deletePostAction(postId);
                 toast.promise(promise, {
                   loading: "deleting post..",
                   success: "post deleted",

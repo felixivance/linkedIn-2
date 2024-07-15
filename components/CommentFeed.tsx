@@ -15,8 +15,8 @@ const CommentFeed = ({ post }: Props) => {
 
   return (
     <div className="space-y-2 mt-3 mb-2 border-t ">
-      {post?.comments?.map((comment) => (
-        <div key={comment._id as string} className="flex space-x-1 mx-2 pt-2">
+      {post?.comments?.map((comment, index) => (
+        <div key={index} className="flex space-x-1 mx-2 pt-2">
           <Avatar>
             <AvatarImage src={comment.user.userImage} />
             <AvatarFallback>

@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, models, Model } from "mongoose";
+import mongoose, { Schema, Document, models, Model, Types } from "mongoose";
 import { Comment, IComment, ICommentBase } from "./comment";
 import { IUser } from "@/types/user";
 
@@ -11,6 +11,7 @@ export interface IPostBase {
 }
 
 export interface IPost extends IPostBase, Document {
+  _id: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
